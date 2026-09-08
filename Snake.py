@@ -1,4 +1,3 @@
-
 # Python Snake Game
 
 from tkinter import *
@@ -213,7 +212,7 @@ def main():
 
 
 if __name__ == "__main__":
-	global canvas
+	global canvas, panel_lateral
 	
 	window = Tk()
 	window.title("Snake game")
@@ -222,15 +221,24 @@ if __name__ == "__main__":
 	screen_width = window.winfo_screenwidth()
 	screen_height = window.winfo_screenheight()
 	
+	# Cambiado el pack para meter el panel del laboratorio al lado izquierdo
 	canvas = Canvas(window, bg="black", height=GAME_HEIGHT, width=GAME_WIDTH)
-	canvas.pack()
+	canvas.pack(side = LEFT)
+	
+	# primer avance de la interfaz: agregamos frame lateral vacio para las cosas del tp
+	panel_lateral=Frame(window, width=280, height=GAME_HEIGHT, bg="#2c3e50")
+	panel_lateral.pack(side = RIGHT, fill = Y)
+	
+	# cartelito temporal para q el panel no quede invisible
+	texto_prueba = Label(panel_lateral, text="Panel de Envíos del TP2", bg="#2c3e50", fg="white")
+	texto_prueba.pack(pady=20)
 	
 	def start_game():
 		start_button.destroy()
 		main()
 
 	start_button = Button(window, text="Start Game", command=start_game, width=15, height=2, font=("Arial", 16))
-	start_button.place(relx=0.5, rely=0.5, anchor=CENTER)
+	start_button.place(relx=0.4, rely=0.5, anchor=CENTER) # movido a 0.4 para centrar con el canvas nuevo
 	x = (screen_width - window.winfo_reqwidth()) // 2
 	y = (screen_height - window.winfo_reqheight()) // 2
 	
