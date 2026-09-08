@@ -212,7 +212,7 @@ def main():
 
 
 if __name__ == "__main__":
-	global canvas, panel_lateral
+	global canvas, panel_lateral, mail_elegido, campo_manual
 	
 	window = Tk()
 	window.title("Snake game")
@@ -221,24 +221,47 @@ if __name__ == "__main__":
 	screen_width = window.winfo_screenwidth()
 	screen_height = window.winfo_screenheight()
 	
-	# Cambiado el pack para meter el panel del laboratorio al lado izquierdo
 	canvas = Canvas(window, bg="black", height=GAME_HEIGHT, width=GAME_WIDTH)
 	canvas.pack(side = LEFT)
 	
-	# primer avance de la interfaz: agregamos frame lateral vacio para las cosas del tp
 	panel_lateral=Frame(window, width=280, height=GAME_HEIGHT, bg="#2c3e50")
 	panel_lateral.pack(side = RIGHT, fill = Y)
 	
-	# cartelito temporal para q el panel no quede invisible
-	texto_prueba = Label(panel_lateral, text="Panel de Envíos del TP2", bg="#2c3e50", fg="white")
+	texto_prueba = Label(panel_lateral, text="Panel de Envíos del TP2", bg="#2c3e50", fg="white", font=("Arial", 14, "bold"))
 	texto_prueba.pack(pady=20)
+	
+	# --- NUEVO AGREGADO COMMIT 2: MENÚ DESPLEGABLE Y TEXTO ---
+	lbl_destinatario = Label(panel_lateral, text="Elegir Docente/Compañero:", bg="#2c3e50", fg="white")
+	lbl_destinatario.pack(anchor="w", px=10, pady=5)
+	
+	lista_correos=[
+		"Seleccione un email...",
+		"fjcoronati@gmail.com",
+		"docente_laboratorio@gmail.com",
+		"ayudante_programacion@gmail.com",
+		"compañeroclasen1@gmail.com",
+		"mi_propio_correo@gmail.com"
+	]
+	mail_elegido=StringVar(window)
+	mail_elegido.set(lista_correos[0])
+	
+	menu_desplegable=OptionMenu(panel_lateral, mail_elegido, *lista_correos)
+	menu_desplegable.config(width=22)
+	menu_desplegable.pack(pady=5)
+	
+	lbl_manual = Label(panel_lateral, text="O escribir manualmente:", bg="#2c3e50", fg="white")
+	lbl_manual.pack(anchor="w", px=10, pady=5)
+	
+	campo_manual=Entry(panel_lateral, width=25)
+	campo_manual.pack(pady=5)
+	# --------------------------------------------------------
 	
 	def start_game():
 		start_button.destroy()
 		main()
 
 	start_button = Button(window, text="Start Game", command=start_game, width=15, height=2, font=("Arial", 16))
-	start_button.place(relx=0.4, rely=0.5, anchor=CENTER) # movido a 0.4 para centrar con el canvas nuevo
+	start_button.place(relx=0.4, rely=0.5, anchor=CENTER)
 	x = (screen_width - window.winfo_reqwidth()) // 2
 	y = (screen_height - window.winfo_reqheight()) // 2
 	
