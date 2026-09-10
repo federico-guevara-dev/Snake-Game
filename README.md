@@ -1,43 +1,77 @@
-# Trabajo Práctico de Laboratorio N°2: Snake Game con GUI y Envío de Correos
+# Trabajo Práctico de Laboratorio N°2: Interfaz Gráfica de Usuario (GUI) y GitHub Fork
 
-Este proyecto es una bifurcación (fork) del repositorio de [Snake-Game](https://github.com/Degef/Snake-Game). El objetivo principal del laboratorio consiste en tomar una aplicación con interfaz gráfica existente en Python (Tkinter), adaptarla con nuevos requerimientos de diseño funcional y preparar el entorno para la posterior exportación a ejecutable.
-
----
-
-## 📌 Modificaciones Realizadas en la Versión Inicial (Commit 1)
-
-En esta primera etapa se intervino la estructura base del juego sin alterar la lógica de movimiento ni el sistema de colisiones de la viborita:
-
-1. **Reestructuración del Layout de la Interfaz (GUI)**:
-   * **Separación de áreas**: El juego original renderizaba únicamente un `Canvas` centrado. En esta modificación se dividió la ventana principal en dos columnas.
-   * **Área de juego (`Canvas`)**: Se configuró con empaquetado a la izquierda (`side=LEFT`) manteniendo la resolución clásica de 700x700 px.
-   * **Panel Lateral de Control (`panel_lateral`)**: Se incorporó un contenedor `Frame` vertical a la derecha (`side=RIGHT, fill=Y`) de 280 px de ancho con un fondo contrastante `#2c3e50`.
-
-2. **Reubicación de Componentes**:
-   * El marcador de puntaje (`label`), que antes flotaba en la parte superior general de la ventana, se reubicó de manera fija dentro del nuevo panel lateral derecho.
-   * El botón de inicio (`Start Game`) se reajustó proporcionalmente sobre el eje horizontal para centrarse en el área visual del lienzo de juego y no en el ancho total de la ventana combinada.
-
-3. **Correcciones de Código y Tipado**:
-   * Se envolvieron los cálculos de posición de la comida dentro de `int()` en la función `Food.__init__` para evitar advertencias de valores flotantes en versiones recientes de Tkinter/Python al calcular `random.randint()`.
+**Materia:** Programación / Laboratorio de Computación  
+**Estudiante:** Federico Guevara  
+**Repositorio Fork:** [https://github.com/federico-guevara-dev/Snake-Game](https://github.com/federico-guevara-dev/Snake-Game)  
+**Repositorio Original:** [https://github.com/Degef/Snake-Game](https://github.com/Degef/Snake-Game)  
 
 ---
 
-## 🎯 Próximas Implementaciones Planificadas
-* **Menú Desplegable (`OptionMenu`)**: Selección rápida de correos electrónicos de docentes y compañeros, sumado a un campo `Entry` para entrada manual.
-* **Integración de Identidad Visual**: Inclusión de logotipo/imagen personalizada en la barra lateral.
-* **Módulo SMTP**: Envío automatizado de puntajes por correo electrónico al finalizar la partida.
-* **Generación de Ejecutable**: Compilación a `.exe` en carpeta `/output` mediante `auto-py-to-exe`.
+## 📖 Descripción del Proyecto
+El objetivo del trabajo práctico consiste en realizar una bifurcación (fork) de un proyecto público de Python con interfaz gráfica de usuario (GUI), incorporar modificaciones estructurales y funcionales a gusto personal cumpliendo consignas técnicas específicas, y generar la documentación correspondiente junto al archivo ejecutable final.
+
+Para este laboratorio se seleccionó el clásico juego de la viborita (**Snake Game**), implementado originalmente con la biblioteca nativa **Tkinter**, expandiéndolo para permitir el registro y notificación de puntajes por correo electrónico.
 
 ---
 
-## 🚀 Instrucciones de Ejecución Local
+## 🛠️ Modificaciones y Añadidos a la Interfaz Gráfica
 
-1. Clonar el fork del repositorio:
+Conforme a los requerimientos del Trabajo Práctico, se rediseñó la ventana principal y se sumaron los siguientes componentes:
+
+1. **Reestructuración del Layout (División en dos sectores)**:
+   * **Área de Juego (`Canvas`)**: Se empaquetó hacia el sector izquierdo (`side=LEFT`), conservando las dimensiones originales de 700x700 px y el fondo negro.
+   * **Panel Lateral de Control (`Frame`)**: Se construyó un panel lateral a la derecha (`side=RIGHT, fill=Y`) de 280 px de ancho con estética oscura (`#2c3e50`) para nuclear las interacciones del laboratorio sin entorpecer la jugabilidad.
+   * **Reubicación de Elementos**: El marcador de puntajes (`Score`) se trasladó al panel lateral y el botón de inicio de partida (`Start Game`) fue recalibrado sobre el eje horizontal (`relx=0.36`) para centrarse con respecto al lienzo jugable.
+
+2. **Menú de Selección de Destinatarios (`OptionMenu`) - Requisito 4.c**:
+   * Se incorporó una lista desplegable con las direcciones de los docentes del área:
+     * `fjcoronati@gmail.com`
+     * `mfedullo@gmail.com`
+   * Permite escoger el destinatario del reporte con un clic.
+
+3. **Entrada Manual de Correo (`Entry`) - Requisito 4.c**:
+   * Se integró una caja de entrada de texto manual justo debajo del menú desplegable para que el usuario pueda escribir cualquier otra dirección alternativa en caso de no seleccionarla del listado.
+
+4. **Correcciones de Código**:
+   * Se envolvieron los cálculos de coordenadas de la comida dentro de `int()` en la clase `Food` (`int((GAME_WIDTH / SPACE_SIZE) - 1)`), subsanando problemas de tipos de datos en `random.randint` presentes en versiones actualizadas de Python.
+
+---
+
+## 📸 Capturas de Pantalla
+
+### Interfaz Gráfica del Juego
+*(Incluir aquí la captura de la ventana con el juego corriendo y el panel lateral derecho con el OptionMenu y campo manual)*  
+![Interfaz Gráfica](captura_interfaz.png)
+
+### Notificación y Recepción del Correo
+*(Incluir aquí la captura de la bandeja de entrada recibiendo el mail de notificación)*  
+![Bandeja de Entrada](captura_correo.png)
+
+---
+
+## 🚀 Historial de Commits Realizados
+
+En cumplimiento del mínimo de 4 commits descriptivos en el repositorio:
+
+1. `Modificacion de la estructura de la interfaz agregando panel lateral`: Separación del lienzo de juego a la izquierda y creación del contenedor `panel_lateral`.
+2. `Agregado OptionMenu de correos y entrada de texto manual en panel lateral`: Incorporación de `OptionMenu` con correos docentes (`fjcoronati@gmail.com`, `mfedullo@gmail.com`) y caja `Entry`.
+3. `Implementacion de envio por SMTP y boton de despacho`: Lógica de conexión con servidor de correo para remitir el puntaje obtenido al perder.
+4. `Inclusion de identidad visual e informe final`: Ajustes estéticos con imagen personalizada y documentación del proyecto.
+
+---
+
+## 📦 Instrucciones de Ejecución
+
+### Desde Código Fuente:
+1. Clonar el repositorio localmente:
    ```bash
    git clone https://github.com/federico-guevara-dev/Snake-Game.git
    cd Snake-Game
    ```
-2. Ejecutar el script principal:
+2. Ejecutar el script:
    ```bash
    python Snake.py
    ```
+
+### Desde el Ejecutable (.exe):
+* El binario compilado se encuentra dentro del directorio `/output` listo para ser ejecutado en entornos Windows sin requerir instalación previa de Python.
