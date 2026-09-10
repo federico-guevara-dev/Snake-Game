@@ -1,28 +1,43 @@
-# Snake Game
+# Trabajo Práctico de Laboratorio N°2: Snake Game con GUI y Envío de Correos
 
-This is a simple Snake game implemented in Python using the tkinter library for the graphical user interface. The game offers a classic Snake experience where the player controls a snake to collect food items and grow longer. The objective is to collect as many points as possible before colliding with the walls or the snake's own body.
+Este proyecto es una bifurcación (fork) del repositorio de [Snake-Game](https://github.com/Degef/Snake-Game). El objetivo principal del laboratorio consiste en tomar una aplicación con interfaz gráfica existente en Python (Tkinter), adaptarla con nuevos requerimientos de diseño funcional y preparar el entorno para la posterior exportación a ejecutable.
 
-## Features
+---
 
-- **Intuitive Controls:** Use the WASD keys or arrow keys to control the snake's direction.
-- **Score Tracking:** Keep track of your score as you collect food items.
-- **Increasing Difficulty:** The snake's length increases as you collect more food, making the game progressively challenging.
-- **Restart Option:** Press the "R" button to restart the game if you want to try again.
-- **Customizable:** The code is open-source and easily customizable, allowing you to modify and expand the game according to your preferences.
+## 📌 Modificaciones Realizadas en la Versión Inicial (Commit 1)
 
-## Getting Started
+En esta primera etapa se intervino la estructura base del juego sin alterar la lógica de movimiento ni el sistema de colisiones de la viborita:
 
-1. Clone this repository.
-2. Run the `.py` file.
-3. Press the "Start Game" button to begin.
-4. Use WASD or arrow keys to control the snake.
-5. Collect food items and aim for a high score!
+1. **Reestructuración del Layout de la Interfaz (GUI)**:
+   * **Separación de áreas**: El juego original renderizaba únicamente un `Canvas` centrado. En esta modificación se dividió la ventana principal en dos columnas.
+   * **Área de juego (`Canvas`)**: Se configuró con empaquetado a la izquierda (`side=LEFT`) manteniendo la resolución clásica de 700x700 px.
+   * **Panel Lateral de Control (`panel_lateral`)**: Se incorporó un contenedor `Frame` vertical a la derecha (`side=RIGHT, fill=Y`) de 280 px de ancho con un fondo contrastante `#2c3e50`.
 
-## Video
+2. **Reubicación de Componentes**:
+   * El marcador de puntaje (`label`), que antes flotaba en la parte superior general de la ventana, se reubicó de manera fija dentro del nuevo panel lateral derecho.
+   * El botón de inicio (`Start Game`) se reajustó proporcionalmente sobre el eje horizontal para centrarse en el área visual del lienzo de juego y no en el ancho total de la ventana combinada.
 
+3. **Correcciones de Código y Tipado**:
+   * Se envolvieron los cálculos de posición de la comida dentro de `int()` en la función `Food.__init__` para evitar advertencias de valores flotantes en versiones recientes de Tkinter/Python al calcular `random.randint()`.
 
-https://github.com/Degef/Snake-Game/assets/103037326/803f3130-badc-4b6b-b988-2b8d07c358c5
+---
 
+## 🎯 Próximas Implementaciones Planificadas
+* **Menú Desplegable (`OptionMenu`)**: Selección rápida de correos electrónicos de docentes y compañeros, sumado a un campo `Entry` para entrada manual.
+* **Integración de Identidad Visual**: Inclusión de logotipo/imagen personalizada en la barra lateral.
+* **Módulo SMTP**: Envío automatizado de puntajes por correo electrónico al finalizar la partida.
+* **Generación de Ejecutable**: Compilación a `.exe` en carpeta `/output` mediante `auto-py-to-exe`.
 
+---
 
-<img width="634" alt="Screen Shot 2023-10-09 at 2 27 17 PM" src="https://github.com/Degef/Snake-Game/assets/103037326/04fc2156-b8d1-4646-a138-ec2f778dc656">
+## 🚀 Instrucciones de Ejecución Local
+
+1. Clonar el fork del repositorio:
+   ```bash
+   git clone https://github.com/federico-guevara-dev/Snake-Game.git
+   cd Snake-Game
+   ```
+2. Ejecutar el script principal:
+   ```bash
+   python Snake.py
+   ```
