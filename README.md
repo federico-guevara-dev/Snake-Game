@@ -35,17 +35,6 @@ Conforme a los requerimientos del Trabajo Práctico, se rediseñó la ventana pr
 4. **Correcciones de Código**:
    * Se envolvieron los cálculos de coordenadas de la comida dentro de `int()` en la clase `Food` (`int((GAME_WIDTH / SPACE_SIZE) - 1)`), subsanando problemas de tipos de datos en `random.randint` presentes en versiones actualizadas de Python.
 
----
-
-## 📸 Capturas de Pantalla
-
-### Interfaz Gráfica del Juego
-*(Incluir aquí la captura de la ventana con el juego corriendo y el panel lateral derecho con el OptionMenu y campo manual)*  
-![Interfaz Gráfica](captura_interfaz.png)
-
-### Notificación y Recepción del Correo
-*(Incluir aquí la captura de la bandeja de entrada recibiendo el mail de notificación)*  
-![Bandeja de Entrada](captura_correo.png)
 
 ---
 
