@@ -213,7 +213,7 @@ def main():
 
 
 if __name__ == "__main__":
-	global canvas, panel_lateral
+	global canvas, panel_lateral, mail_var, entry_manual
 	
 	window = Tk()
 	window.title("Snake Game - Laboratorio N2")
@@ -223,13 +223,39 @@ if __name__ == "__main__":
 	screen_height = window.winfo_screenheight()
 	
 	canvas = Canvas(window, bg=BACKGROUND_COLOR, height=GAME_HEIGHT, width=GAME_WIDTH)
-	canvas.pack(side = LEFT)
+	canvas.pack(side=LEFT)
 	
 	panel_lateral = Frame(window, width=280, height=GAME_HEIGHT, bg="#2c3e50")
-	panel_lateral.pack(side = RIGHT, fill = Y)
+	panel_lateral.pack(side=RIGHT, fill=Y)
 	
 	texto_prueba = Label(panel_lateral, text="Panel de Envíos TP2", bg="#2c3e50", fg="white", font=("Arial", 13, "bold"))
 	texto_prueba.pack(pady=20)
+	
+	# --- REQUISITO 4.c: SELECCIÓN DE CORREO DESTINATARIO ---
+	lbl_opcion = Label(panel_lateral, text="Destinatario docente/alumno:", bg="#2c3e50", fg="white")
+	lbl_opcion.pack(anchor="w", padx=15, pady=5)
+	
+	lista_destinatarios = [
+		"Seleccione un correo...",
+		"fjcoronati@gmail.com",
+		"docente_lab2@instituto.edu.ar",
+		"profesor_prog@instituto.edu.ar",
+		"companero1@gmail.com",
+		"mi_correo@gmail.com"
+	]
+	mail_var = StringVar(window)
+	mail_var.set(lista_destinatarios[0])
+	
+	menu_correos = OptionMenu(panel_lateral, mail_var, *lista_destinatarios)
+	menu_correos.config(width=23)
+	menu_correos.pack(padx=15, pady=5)
+	
+	lbl_manual = Label(panel_lateral, text="O escribir otro correo:", bg="#2c3e50", fg="white")
+	lbl_manual.pack(anchor="w", padx=15, pady=5)
+	
+	entry_manual = Entry(panel_lateral, width=27)
+	entry_manual.pack(padx=15, pady=5)
+	# -------------------------------------------------------
 	
 	def start_game():
 		start_button.destroy()
