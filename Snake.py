@@ -34,8 +34,8 @@ class Food:
 
     def __init__(self):
 
-        x = random.randint(0, (GAME_WIDTH / SPACE_SIZE) - 1) * SPACE_SIZE
-        y = random.randint(0, (GAME_HEIGHT / SPACE_SIZE) - 1) * SPACE_SIZE
+        x = random.randint(0, int((GAME_WIDTH / SPACE_SIZE) - 1)) * SPACE_SIZE
+        y = random.randint(0, int((GAME_HEIGHT / SPACE_SIZE) - 1)) * SPACE_SIZE
 
         self.coordinates = [x, y]
 
@@ -44,7 +44,7 @@ class Food:
 
 def next_turn(snake, food):
 
-    global direction  # Declare direction as global
+    global direction
 
     x, y = snake.coordinates[0]
 
@@ -69,7 +69,7 @@ def next_turn(snake, food):
 
         score += 1
 
-        label.config(text="Score:{}".format(score))
+        label.config(text="Score: {}".format(score))
 
         canvas.delete("food")
 
@@ -131,11 +131,10 @@ def game_restart():
     canvas.delete("gameover")
     score = 0
     direction = 'down'
-    label.config(text="Score:{}".format(score))
+    label.config(text="Score: {}".format(score))
     snake = Snake()
     food = Food()
     next_turn(snake, food)
-
 
 
 def submit_name(name):
@@ -144,10 +143,11 @@ def submit_name(name):
         highest_score = score
         highest_score_name = name
     canvas.delete("gameover")
-    canvas.create_text(canvas.winfo_width() / 2, canvas.winfo_height() / 2, font=('consolas', 30), 
+    canvas.create_text(canvas.winfo_width() / 2, canvas.winfo_height() / 2, font=('consolas', 24), 
 	    text="Highest Scorer is {}: {}".format(highest_score_name, highest_score), fill="white", tag="gameover")
     canvas.create_text(canvas.winfo_width() / 2, canvas.winfo_height() / 2 + 50,
-            font=('consolas', 30), text="Press R to restart the game", fill="white", tag="gameover")
+            font=('consolas', 24), text="Press R to restart the game", fill="white", tag="gameover")
+
 
 def game_over():
     global canvas, window, score, label, direction, highest_score, highest_score_name, restart_label
@@ -155,43 +155,44 @@ def game_over():
     canvas.delete("all")
     score_text = canvas.create_text(
         canvas.winfo_width() / 2, canvas.winfo_height() / 2,
-        font=('consolas', 70), text="GAME OVER", fill="red", tag="gameover")
+        font=('consolas', 60), text="GAME OVER", fill="red", tag="gameover")
 
     your_score_text = canvas.create_text(
         canvas.winfo_width() / 2, canvas.winfo_height() / 2 + 50,
-        font=('consolas', 30), text="Your score: {}".format(score), fill="white", tag="gameover")
+        font=('consolas', 24), text="Your score: {}".format(score), fill="white", tag="gameover")
 
     window.bind('<Key-r>', lambda event: game_restart())
     restart_label = canvas.create_text(
             canvas.winfo_width() / 2, canvas.winfo_height() / 2 + 100,
-            font=('consolas', 30), text="Press R to restart the game", fill="white", tag="gameover")
+            font=('consolas', 24), text="Press R to restart the game", fill="white", tag="gameover")
+            
     if score > highest_score:
         name_entry_label = canvas.create_text(
             canvas.winfo_width() / 2, canvas.winfo_height() / 2 + 150,
-            font=('consolas', 30), text="Enter your name:", fill="white", tag="gameover")
+            font=('consolas', 24), text="Enter your name:", fill="white", tag="gameover")
 
-        name_entry = Entry(window, font=('consolas', 30))
+        name_entry = Entry(window, font=('consolas', 20))
         name_entry_window = canvas.create_window(
-            canvas.winfo_width() / 2, canvas.winfo_height() / 2 + 200,
+            canvas.winfo_width() / 2, canvas.winfo_height() / 2 + 190,
             window=name_entry, tag="gameover")
 
         name_entry_button = Button(
             window, text="Submit",
             command=lambda: submit_name(name_entry.get()),
-            font=('consolas', 30))
+            font=('consolas', 16))
         name_entry_button_window = canvas.create_window(
-            canvas.winfo_width() / 2, canvas.winfo_height() / 2 + 250,
+            canvas.winfo_width() / 2, canvas.winfo_height() / 2 + 235,
             window=name_entry_button, tag="gameover")
 
 
 def main():
-    global canvas, window, score, label, direction
+    global canvas, window, score, label, direction, panel_lateral
 
     score = 0
     direction = 'down'
 
-    label = Label(window, text="Score:{}".format(score), font=('consolas', 40))
-    label.pack()
+    label = Label(panel_lateral, text="Score: 0", font=('consolas', 24), bg="#2c3e50", fg="yellow")
+    label.pack(pady=15)
 
     window.update()
 
@@ -215,19 +216,19 @@ if __name__ == "__main__":
 	global canvas, panel_lateral
 	
 	window = Tk()
-	window.title("Snake game")
+	window.title("Snake Game - Laboratorio N2")
 	window.resizable(False, False)
 	
 	screen_width = window.winfo_screenwidth()
 	screen_height = window.winfo_screenheight()
 	
-	canvas = Canvas(window, bg="black", height=GAME_HEIGHT, width=GAME_WIDTH)
+	canvas = Canvas(window, bg=BACKGROUND_COLOR, height=GAME_HEIGHT, width=GAME_WIDTH)
 	canvas.pack(side = LEFT)
 	
-	panel_lateral=Frame(window, width=280, height=GAME_HEIGHT, bg="#2c3e50")
+	panel_lateral = Frame(window, width=280, height=GAME_HEIGHT, bg="#2c3e50")
 	panel_lateral.pack(side = RIGHT, fill = Y)
 	
-	texto_prueba = Label(panel_lateral, text="Panel de Envíos del TP2", bg="#2c3e50", fg="white")
+	texto_prueba = Label(panel_lateral, text="Panel de Envíos TP2", bg="#2c3e50", fg="white", font=("Arial", 13, "bold"))
 	texto_prueba.pack(pady=20)
 	
 	def start_game():
@@ -235,9 +236,10 @@ if __name__ == "__main__":
 		main()
 
 	start_button = Button(window, text="Start Game", command=start_game, width=15, height=2, font=("Arial", 16))
-	start_button.place(relx=0.4, rely=0.5, anchor=CENTER)
-	x = (screen_width - window.winfo_reqwidth()) // 2
-	y = (screen_height - window.winfo_reqheight()) // 2
+	start_button.place(relx=0.36, rely=0.5, anchor=CENTER)
+	
+	x = (screen_width - (GAME_WIDTH + 280)) // 2
+	y = (screen_height - GAME_HEIGHT) // 2
 	
 	window.geometry("+{}+{}".format(x, y))
 	window.mainloop()
